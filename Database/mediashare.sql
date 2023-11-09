@@ -14,7 +14,8 @@ CREATE TABLE Users (
   password VARCHAR(255) NOT NULL,
   email VARCHAR(255) NOT NULL UNIQUE,
   user_level_id INT NOT NULL,
-  created_at TIMESTAMP NOT NULL
+  created_at TIMESTAMP NOT NULL,
+  FOREIGN KEY (user_level_id) REFERENCES UserLevel(user_level_id)
 );
 
 CREATE TABLE MediaItems (
@@ -40,15 +41,16 @@ CREATE TABLE Comments(
   FOREIGN KEY (media_id) REFERENCES MediaItems(media_id)
 );
 
+
+-- add user levels
+INSERT INTO UserLevel (user_level_id, user_level) VALUES (1, 'user'), (2, 'manager'), (3, 'admin');
+SELECT * FROM UserLevel;
+
 -- add users
 INSERT INTO Users VALUES (260, 'VCHar', 'secret123', 'vchar@example.com', 1, null);
 INSERT INTO Users VALUES (305, 'Donatello', 'secret234', 'dona@example.com', 1, null);
 INSERT INTO Users VALUES (110, 'Dragon', 'salasana', 'info@metris.fi', 3, null);
 SELECT * FROM Users;
-
--- add user levels
-INSERT INTO UserLevel (user_level) VALUES ('user'), ('manager'), ('admin');
-SELECT * FROM UserLevel;
 
 -- add media files
 INSERT INTO MediaItems (filename, filesize, title, description, user_id, media_type, created_at) 
